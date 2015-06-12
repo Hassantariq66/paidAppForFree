@@ -5,16 +5,19 @@
         margin: auto;
     }
 </style>
+@model FreeAppsDownload.Models.ApplicationAndComment
+@using FreeAppsDownload.Models
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/bootstrap-rating-input.min.js"></script>
-@model FreeAppsDownload.Models.ApplicationAndComment
-@using FreeAppsDownload.Models
+<link href="~/Content/flaty.bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <script src="~/Scripts/jquery.fancybox.js"></script>
 <script src="~/Scripts/jquery.fancybox.pack.js"></script>
 <link href="~/Content/jquery.fancybox.css" rel="stylesheet" />
 <script src="~/Scripts/jquery.fancybox-thumbs.js"></script>
 <script src="~/Scripts/FancyBox/jquery.mousewheel-3.0.6.pack.js"></script>
+<link href="~/Content/style.css" rel="stylesheet" />
+
 <link href="~/Content/jquery.fancybox-thumbs.css" rel="stylesheet" />
 <link href="~/Content/jquery.fancybox-buttons.css" rel="stylesheet" />
 <script>
@@ -86,104 +89,107 @@
             cat = (List<Category>)Session["category"];
         }
     }
+
+
     <div class="sub-cate">
-        <div class=" top-nav rsidebar span_1_of_left">
-            <h3 class="cate">CATEGORIES</h3>
-            <ul class="menu">
-                <li class="item1">
-                    <a href="#">Android<img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /> </a>
-                    <ul class="cute">
 
-                        @{
-                            var OS = "android";
-                        }
-                        @if (cat != null)
-                        {
-                            foreach (Category c in cat)
+            <div class=" top-nav sidebar span_1_of_left">
+                <h3 class="cate">CATEGORIES</h3>
+                <ul class="menu">
+                    <li class="item1">
+                        <a href="#">Android<img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /> </a>
+                        <ul class="cute">
+
+                            @{
+                                var OS = "android";
+                            }
+                            @if (cat != null)
                             {
-                                <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
+                                foreach (Category c in cat)
+                                {
+                                    <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
+
+                                }
+                            }
+                        </ul>
+                    </li>
+                    <li class="item2">
+                        <!---->
+                        <a href="#">Apple IOS<img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /></a>
+                        <ul class="cute">
+                            @{
+                                OS = "ios";
+
 
                             }
-                        }
-                    </ul>
-                </li>
-                <li class="item2">
-                    <!---->
-                    <a href="#">Apple IOS<img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /></a>
-                    <ul class="cute">
-                        @{
-                            OS = "ios";
-
-
-                        }
-                        @if (cat != null)
-                        {
-                            foreach (Category c in cat)
+                            @if (cat != null)
                             {
-                                <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
+                                foreach (Category c in cat)
+                                {
+                                    <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
+
+                                }
+                            }
+                        </ul>
+                    </li>
+                    <li class="item3">
+                        <a href="#">Windows OS<img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /> </a>
+                        <ul class="cute">
+                            @{
+                                OS = "wos";
 
                             }
-                        }
-                    </ul>
-                </li>
-                <li class="item3">
-                    <a href="#">Windows OS<img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /> </a>
-                    <ul class="cute">
-                        @{
-                            OS = "wos";
-
-                        }
-                        @if (cat != null)
-                        {
-                            foreach (Category c in cat)
+                            @if (cat != null)
                             {
-                                <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
+                                foreach (Category c in cat)
+                                {
+                                    <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
 
+                                }
                             }
-                        }
-                    </ul>
-                </li>
-                <li class="item4">
-                    <a href="#">Blackberry OS <img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /></a>
-                    <ul class="cute">
-                        @{
-                            OS = "bbos";
-                        }
-                        @if (cat != null)
-                        {
-                            foreach (Category c in cat)
+                        </ul>
+                    </li>
+                    <li class="item4">
+                        <a href="#">Blackberry OS <img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /></a>
+                        <ul class="cute">
+                            @{
+                                OS = "bbos";
+                            }
+                            @if (cat != null)
                             {
-                                <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
+                                foreach (Category c in cat)
+                                {
+                                    <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
 
+                                }
                             }
-                        }
-                    </ul>
-                </li>
-                <li class="item5">
-                    <a href="#">BADA OS <img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /></a>
-                    <ul class="cute">
-                        @{
-                            OS = "bos";
-                        }
-                        @if (cat != null)
-                        {
-                            foreach (Category c in cat)
+                        </ul>
+                    </li>
+                    <li class="item5">
+                        <a href="#">BADA OS <img class="arrow-img" style="float:right;margin-top:20px" src="~/images/arrow1.png" alt="" /></a>
+                        <ul class="cute">
+                            @{
+                                OS = "bos";
+                            }
+                            @if (cat != null)
                             {
-                                <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
+                                foreach (Category c in cat)
+                                {
+                                    <li><a href="@Url.Action("ViewApps", "Home", new { os=OS ,cat=c.value})">@c.Category1</a></li>
 
+                                }
                             }
-                        }
-                    </ul>
-                </li>
-            </ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
 
 
 
 
 
-    <div class=" single_top">
+    <div class="single_top">
         <div class="thumbnail" >
             <div id="myCarousel" class="carousel slide" data-ride="carousel" style="background-color:#333333">
                 <!-- Indicators -->
@@ -228,38 +234,41 @@
                 </h4>
                 <p> @Model.application.desc</p>
             </div>
-            <div class="ratings">
-                <p class="pull-right"> <a href="@Url.Action("Download", "Home", new { id=Model.application.Id})" ><input type="submit" value="Download" style="float:right; margin-top:-10px; box-sizing:border-box ;padding:.6em 0.8em ;background-color:#F97E76;display:inline-block; border:none;outline:none; border-color:#18bc9c ; color:#fff" /></a></p>
-                <!--<p class="pull-right">@Model.comment.Count reviews</p> -->
-                <p>
-                   
-                    @{
-                        var rating = 0;
-                        try { 
-                        
-                        foreach (Comment c in Model.comment)
-                        { 
-                            rating += c.rating;
+                <div class="ratings">
+                    <p class="pull-right"> <a href="@Url.Action("Download", "Home", new { id=Model.application.Id})"><input type="submit" value="Download" style="float:right; margin-top:-10px; box-sizing:border-box ;padding:.6em 0.8em ;background-color:#F97E76;display:inline-block; border:none;outline:none; border-color:#18bc9c ; color:#fff" /></a></p>
+                    <!--<p class="pull-right">@Model.comment.Count reviews</p> -->
+                    <p>
+
+                        @{
+                            var rating = 0;
+                            try
+                            {
+
+                                foreach (Comment c in Model.comment)
+                                {
+                                    rating += c.rating;
+                                }
+                                rating /= Model.comment.Count;
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+
                         }
-                        rating /= Model.comment.Count;
-                        }catch(Exception ex)
+                        @for (int i = 0; i < rating; i++)
                         {
-                            
+                            <span class="glyphicon glyphicon-star"></span>
                         }
-                    
-                    }
-                    @for (int i = 0; i < rating;i++)
-                    { 
-                    <span class="glyphicon glyphicon-star"></span>
-                    }
-                    @for (int i = 0; i < 5-rating; i++)
-                    { <span class="glyphicon glyphicon-star-empty"></span>}
-                    @rating stars
-                </p>
+                        @for (int i = 0; i < 5 - rating; i++)
+                        { <span class="glyphicon glyphicon-star-empty"></span>}
+                        @rating stars
+                    </p>
+                </div>
             </div>
-        </div>
 
         <div class="well">
+           
             <form class="navbar navbar-form" action="@Url.Action("submitComment","Home")" onsubmit="return check()" method="post">
                 <textarea name="descr" style="width:100%; height:40%; margin-left:0px; height:89px; border-style:groove; border-color:none" placeholder="Write Review"></textarea><br/><br/>
 				<input type="number" name="rating" id="rating" class="rating" />
@@ -270,15 +279,23 @@
                 <hr>
                 @foreach(Comment c in Model.comment)
                 { 
-                   if(Session["review"]!=null)
-                    {
-                        <div class="alert alert-danger" role="alert">
-                        You Have Already submitted Review Below is yours Review 
-                        </div>
-                        Session["review"] = null;
-                    }
+                   
                 <div class="row">
                     <div class="col-md-12">
+                        @if(Session["review"]!=null)
+                        {
+                            User user = (User)Session["review"];
+                            if(c.username.Trim().Equals(user.username.Trim()))
+                            { 
+                                
+                            <div class="alert alert-danger" role="alert">
+                                You Have Already submitted Review Below is yours Review
+                            </div>
+                        
+                            Session["review"] = null;
+                            }
+                        }
+
                         @for (int i = 0; i < c.rating;i++ )
                         {
                             <span class="glyphicon glyphicon-star"></span>

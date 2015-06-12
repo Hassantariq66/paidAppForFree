@@ -122,39 +122,39 @@
         <div class="grid-product">
 
             @foreach (Application product in ViewBag.OnePageOfProducts)
-            {
-            <div class="  product-grid">
-                <div class="content_box">
-                    <div class="left-grid-view grid-view-left">
-                        <a href="@Url.Action("Single", "Home",new {id=product.Id})">
-                            
-                         <img src="@Url.Content(product.image1)" class=" img-responsive watch-right" style="max-width:300px;max-height:200px;" alt="image" />
-                         </a>
-                    </div>
-                    <div align="center">
-                        <h4><a href="@Url.Action("Single", "Home",new {id=product.Id})"> @product.name</a></h4>
-                       
-                        @if(product.desc.ToString().Count()>50)
-                        { 
-                        <p>@product.desc.Substring(0,50) ...</p>
-                        }
-                        else if(product.desc.ToString().Count()>20)
-                        {
-                            <p>@product.desc.Substring(0,20) ....</p>
-                        }
-                        else
-                        {   <p>@product.name......</p>
-                        }
-                    </div>
-                </div>
+{
+    <div class="product-grid col-lg-4">
+        <div class="content_box ">
+            <div class="left-grid-view grid-view-left">
+                <a href="@Url.Action("Single", "Home",new {id=product.Id})">
+
+                    <img src="@Url.Content(product.image1)" class=" img-responsive watch-right" style="max-width:210px;max-height:200px;" alt="image" />
+                </a>
             </div>
-            }
+            <div align="center">
+                <h4><a href="@Url.Action("Single", "Home",new {id=product.Id})"> @product.name</a></h4>
+
+                @if (product.desc.ToString().Count() > 50)
+                {
+                    <p style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;max-width:200px;">@product.desc.Substring(0, 50) ...</p>
+                }
+                else if (product.desc.ToString().Count() > 20)
+                {
+                    <p>@product.desc.Substring(0, 20) ....</p>
+                }
+                else
+                {   <p>@product.name......</p>
+                }
+            </div>
+        </div>
+    </div>
+}
            
     
         </div>
 
         <div style="text-align: center">
-            @{ OS =ViewBag.os ; var cate = ViewBag.cat; }
+            @{ OS = ViewBag.os; var cate = ViewBag.cat; var rat = ViewBag.rating; var a = ViewBag.a; }
             @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("ViewApps", new { os = OS, cat = cate, page = page }))
         </div>
         <!---

@@ -1,27 +1,80 @@
 ﻿<script src="~/Scripts/jquery-2.1.4.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 @using FreeAppsDownload.Models;
+@model FreeAppsDownload.Models.User
+
 <script>
-	function check() {
-		var p1 = document.getElementById('password').value;
-	    var p2 = document.getElementById('password1').value;
-		var email = document.getElementById('email').value;
-	   if (p1==p2) {
-	    return true;
-		}
-		else {
-	        var error = document.getElementById('error');
-	        error.innerHTML = "Password Didn't match";
-		    return false;
-		}
-		if(email.indexOf('@@')<0 || email.indexOf('.')<0)
-		{
-		    alert("email have at ");
-		    return false;
-		}
-		return false;
-	}
+
+    var submit = true;
+
+    function check() {
+        if (!submit)
+        {
+            return false;
+        }
+        var p1 = document.getElementById('password').value;
+        var p2 = document.getElementById('password1').value;
+        var email = document.getElementById('email').value;
+        if (p1==p2) {
+            return true;
+        }
+        else {
+            var error = document.getElementById('error');
+            error.innerHTML = "Password Didn't match";
+            return false;
+        }
+        if(email.indexOf('@@')<0 || email.indexOf('.')<0)
+        {
+            alert("email have at ");
+            return false;
+        }
+        return false;
+    }
+    $(document).ready(function () {
+
+
+        $('#username').change((function () {
+
+            var userName = $('#username').val();
+
+            $.getJSON("/home/CheckUserName?username=" + userName, function (data) {
+                if (data) {
+                    $('#usercheck').html("Available");
+                    submit = true;
+
+                }
+                else {
+                    $('#usercheck').html("Not Available");
+                    submit = false;
+                }
+            });
+
+        }));
+
+
+
+        $('#email').change((function () {
+
+            var userName = $('#email').val();
+
+            $.getJSON("/home/CheckEmail?email=" + userName, function (data) {
+                if (data) {
+                    $('#emailcheck').html("Available");
+                    submit = true;
+
+                }
+                else {
+                    $('#emailcheck').html("Already Registered");
+                    submit = false;
+                }
+            });
+
+        }));
+
+    });
 </script>
+
 
 
 <div class="container">
@@ -128,29 +181,38 @@
     </div>
 
 	<div class="account_grid">
-		<form action="@Url.Action("RegisterCheck", "Home")" method="post" onsubmit="return check()">
+        @using (Html.BeginForm("RegisterCheck", "Home", FormMethod.Post, new { onsubmit="return check()"}))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 			<div class="login-right">
 				<h3>PERSONAL INFORMATION</h3>
 				@if (ViewBag.Message != null)
-				{
+    {
                    <div class="alert alert-danger" role="alert">
                   @ViewBag.Message
                 </div>
 					<h4 class="alert_info"></h4>
-				}
+    }
 				<div class="mation">
 
 					<span>First Name<label>*</label></span>
-					<input type="text" name="fname" required>
+                    @Html.TextBoxFor(m => m.fname)
+                    @Html.ValidationMessageFor(m => m.fname)
 					<br>
 					<span>Last Name<label>*</label></span>
-					<input type="text" name="lname" required>
+                    @Html.TextBoxFor(m => m.lname, new { required = "required" })
+                    @Html.ValidationMessageFor(m => m.lname)
 					<br>
 					<span>User Name(must be unique)<label>*</label></span>
-					<input type="text" name="username" required>
+					@Html.TextBoxFor(m => m.username, new { required = "required" })
+                    @Html.ValidationMessageFor(m => m.username)
+                    <label id="usercheck" style="color:#F97E76"> </label>
 					<br>
 					<span>Email Address(must be unique)<label>*</label></span>
-					<input type="email" name="email" id="email" required>
+                    @Html.EditorFor(m => m.email, new { required = "required" })
+                    @Html.ValidationMessageFor(m => m.email)
+                    <label id="emailcheck" style="color:#F97E76"> </label>
 					<br>
 					<a class="news-letter" href="#">
 						<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up</label>
@@ -162,12 +224,12 @@
 				<div class="mation">
 					
                     <span>Password<label>*</label></span>
-					<input type="password" name="password"  id="password" required/>
+                    @Html.TextBoxFor(m => m.password, new { required = "required", type = "password" })
 					<br>
                     <span>Password<label>*</label></span>
                     <input type="password" name="password1" id="password1" required/>
-
-                    <label id="error" style="color:red;"></label><br>
+                   
+                    <label id="error" style="color: #F97E76;"></label><br>
 				</div>
 				<div class="register-but">
 					<input type="submit" value="submit">
@@ -176,7 +238,7 @@
 
 			</div>
 
-		</form>
+        }
 
 	</div>
 	<!--starting of sidebar-->
@@ -185,3 +247,4 @@
     
 
 </div>
+
